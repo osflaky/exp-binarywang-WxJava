@@ -1,0 +1,436 @@
+package me.chanjar.weixin.cp.config;
+
+import me.chanjar.weixin.common.bean.WxAccessToken;
+import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
+
+import java.io.File;
+import java.util.concurrent.locks.Lock;
+
+/**
+ * 微信客户端配置存储.
+ *
+ * @author Daniel Qian
+ */
+public interface WxCpConfigStorage {
+
+  /**
+   * 设置企业微信服务器 baseUrl.
+   * 默认值是 https://qyapi.weixin.qq.com , 如果使用默认值，则不需要调用 setBaseApiUrl
+   *
+   * @param baseUrl 企业微信服务器 Url
+   */
+  void setBaseApiUrl(String baseUrl);
+
+  /**
+   * 读取企业微信 API Url.
+   * 支持私有化企业微信服务器.
+   *
+   * @param path the path
+   * @return the api url
+   */
+  String getApiUrl(String path);
+
+  /**
+   * Gets access token.
+   *
+   * @return the access token
+   */
+  String getAccessToken();
+
+  /**
+   * Gets access token lock.
+   *
+   * @return the access token lock
+   */
+  Lock getAccessTokenLock();
+
+  /**
+   * Is access token expired boolean.
+   *
+   * @return the boolean
+   */
+  boolean isAccessTokenExpired();
+
+  /**
+   * 强制将access token过期掉.
+   */
+  void expireAccessToken();
+
+  /**
+   * Update access token.
+   *
+   * @param accessToken the access token
+   */
+  void updateAccessToken(WxAccessToken accessToken);
+
+  /**
+   * Update access token.
+   *
+   * @param accessToken the access token
+   * @param expiresIn   the expires in
+   */
+  void updateAccessToken(String accessToken, int expiresIn);
+
+  /**
+   * Gets jsapi ticket.
+   *
+   * @return the jsapi ticket
+   */
+  String getJsapiTicket();
+
+  /**
+   * Gets jsapi ticket lock.
+   *
+   * @return the jsapi ticket lock
+   */
+  Lock getJsapiTicketLock();
+
+  /**
+   * Is jsapi ticket expired boolean.
+   *
+   * @return the boolean
+   */
+  boolean isJsapiTicketExpired();
+
+  /**
+   * 强制将jsapi ticket过期掉.
+   */
+  void expireJsapiTicket();
+
+  /**
+   * 应该是线程安全的.
+   *
+   * @param jsapiTicket      the jsapi ticket
+   * @param expiresInSeconds the expires in seconds
+   */
+  void updateJsapiTicket(String jsapiTicket, int expiresInSeconds);
+
+  /**
+   * Gets agent jsapi ticket.
+   *
+   * @return the agent jsapi ticket
+   */
+  String getAgentJsapiTicket();
+
+  /**
+   * Gets agent jsapi ticket lock.
+   *
+   * @return the agent jsapi ticket lock
+   */
+  Lock getAgentJsapiTicketLock();
+
+  /**
+   * Is agent jsapi ticket expired boolean.
+   *
+   * @return the boolean
+   */
+  boolean isAgentJsapiTicketExpired();
+
+  /**
+   * 强制将jsapi ticket过期掉.
+   */
+  void expireAgentJsapiTicket();
+
+  /**
+   * 应该是线程安全的.
+   *
+   * @param jsapiTicket      the jsapi ticket
+   * @param expiresInSeconds the expires in seconds
+   */
+  void updateAgentJsapiTicket(String jsapiTicket, int expiresInSeconds);
+
+  /**
+   * Gets corp id.
+   *
+   * @return the corp id
+   */
+  String getCorpId();
+
+  /**
+   * Gets corp secret.
+   *
+   * @return the corp secret
+   */
+  String getCorpSecret();
+
+  /**
+   * Gets agent id.
+   *
+   * @return the agent id
+   */
+  Long getAgentId();
+
+  /**
+   * Gets token.
+   *
+   * @return the token
+   */
+  String getToken();
+
+  /**
+   * Gets aes key.
+   *
+   * @return the aes key
+   */
+  String getAesKey();
+
+  /**
+   * 企微会话存档私钥
+   *
+   * @return msg audit pri key
+   */
+  String getMsgAuditPriKey();
+
+  /**
+   * 获取企微会话存档系统库 绝对路径
+   *
+   * @return msg audit lib path
+   */
+  String getMsgAuditLibPath();
+
+  /**
+   * Gets expires time.
+   *
+   * @return the expires time
+   */
+  long getExpiresTime();
+
+  /**
+   * Gets oauth 2 redirect uri.
+   *
+   * @return the oauth 2 redirect uri
+   */
+  String getOauth2redirectUri();
+
+  /**
+   * Gets http proxy host.
+   *
+   * @return the http proxy host
+   */
+  String getHttpProxyHost();
+
+  /**
+   * Gets http proxy port.
+   *
+   * @return the http proxy port
+   */
+  int getHttpProxyPort();
+
+  /**
+   * Gets http proxy username.
+   *
+   * @return the http proxy username
+   */
+  String getHttpProxyUsername();
+
+  /**
+   * Gets http proxy password.
+   *
+   * @return the http proxy password
+   */
+  String getHttpProxyPassword();
+
+  /**
+   * Gets tmp dir file.
+   *
+   * @return the tmp dir file
+   */
+  File getTmpDirFile();
+
+  /**
+   * http client builder.
+   *
+   * @return ApacheHttpClientBuilder apache http client builder
+   */
+  ApacheHttpClientBuilder getApacheHttpClientBuilder();
+
+  /**
+   * 是否自动刷新token
+   *
+   * @return . boolean
+   */
+  boolean autoRefreshToken();
+
+  /**
+   * 获取群机器人webhook的key
+   *
+   * @return key webhook key
+   */
+  String getWebhookKey();
+
+  /**
+   * 获取通讯录同步的secret
+   *
+   * @return contact secret
+   */
+  String getContactSecret();
+
+  /**
+   * 获取通讯录同步的access token
+   *
+   * @return contact access token
+   */
+  String getContactAccessToken();
+
+  /**
+   * 获取通讯录同步access token的锁
+   *
+   * @return contact access token lock
+   */
+  Lock getContactAccessTokenLock();
+
+  /**
+   * 检查通讯录同步access token是否已过期
+   *
+   * @return true: 已过期, false: 未过期
+   */
+  boolean isContactAccessTokenExpired();
+
+  /**
+   * 强制将通讯录同步access token过期掉
+   */
+  void expireContactAccessToken();
+
+  /**
+   * 更新通讯录同步access token
+   *
+   * @param accessToken      通讯录同步access token
+   * @param expiresInSeconds 过期时间（秒）
+   */
+  void updateContactAccessToken(String accessToken, int expiresInSeconds);
+
+  /**
+   * 获取会话存档的secret
+   *
+   * @return msg audit secret
+   */
+  String getMsgAuditSecret();
+
+  /**
+   * 获取会话存档的access token
+   *
+   * @return msg audit access token
+   */
+  String getMsgAuditAccessToken();
+
+  /**
+   * 获取会话存档access token的锁
+   *
+   * @return msg audit access token lock
+   */
+  Lock getMsgAuditAccessTokenLock();
+
+  /**
+   * 检查会话存档access token是否已过期
+   *
+   * @return true: 已过期, false: 未过期
+   */
+  boolean isMsgAuditAccessTokenExpired();
+
+  /**
+   * 强制将会话存档access token过期掉
+   */
+  void expireMsgAuditAccessToken();
+
+  /**
+   * 更新会话存档access token
+   *
+   * @param accessToken 会话存档access token
+   * @param expiresInSeconds 过期时间（秒）
+   */
+  void updateMsgAuditAccessToken(String accessToken, int expiresInSeconds);
+
+  /**
+   * 获取会话存档SDK（历史接口）。
+   * <p>历史实现中，会话存档 SDK 初始化后有效期为 7200 秒，由 ConfigStorage 负责维护；
+   * 该语义现已废弃，不再保证。</p>
+   *
+   * @return sdk id；历史实现中如果未初始化或已过期返�� 0，当前实现仅为兼容旧代码保留此方法
+   * @deprecated SDK 生命周期已改由 {@link me.chanjar.weixin.cp.api.WxCpMsgAuditService} 内部的 ThreadLocal
+   *             模式管理，不再依赖 ConfigStorage 缓存。请迁移至新接口。
+   */
+  @Deprecated
+  long getMsgAuditSdk();
+
+  /**
+   * 检查会话存档SDK是否已过期
+   *
+   * @return true: 已过期, false: 未过期
+   * @deprecated SDK 生命周期已改由 ThreadLocal 模式管理，过期检查不再必要。
+   */
+  @Deprecated
+  boolean isMsgAuditSdkExpired();
+
+  /**
+   * 更新会话存档SDK
+   *
+   * @param sdk             sdk id
+   * @param expiresInSeconds 过期时间（秒）
+   * @deprecated SDK 生命周期已改由 ThreadLocal 模式管理，无需通过 ConfigStorage 更新。
+   */
+  @Deprecated
+  void updateMsgAuditSdk(long sdk, int expiresInSeconds);
+
+  /**
+   * 使会话存档SDK过期
+   *
+   * @deprecated SDK 生命周期已改由 ThreadLocal 模式管理，此方法已无实际作用。
+   */
+  @Deprecated
+  void expireMsgAuditSdk();
+
+  /**
+   * 增加会话存档SDK的引用计数
+   * 用于支持多线程安全的SDK生命周期管理
+   *
+   * @param sdk sdk id
+   * @return 增加后的引用计数，如果SDK不匹配返回-1
+   * @deprecated 引用计数机制已废弃，由 ThreadLocal 模式替代。
+   */
+  @Deprecated
+  int incrementMsgAuditSdkRefCount(long sdk);
+
+  /**
+   * 减少会话存档SDK的引用计数
+   * 当引用计数降为0且SDK已过期时，才自动销毁SDK以释放资源
+   * 如果SDK尚未过期，保留SDK缓存以供后续调用复用
+   *
+   * @param sdk sdk id
+   * @return 减少后的引用计数；SDK不匹配或引用计数已为0时返回-1
+   * @deprecated 引用计数机制已废弃，由 ThreadLocal 模式替代。
+   */
+  @Deprecated
+  int decrementMsgAuditSdkRefCount(long sdk);
+
+  /**
+   * 获取会话存档SDK的引用计数
+   *
+   * @param sdk sdk id
+   * @return 当前引用计数，如果SDK不匹配返回-1
+   * @deprecated 引用计数机制已废弃，由 ThreadLocal 模式替代。
+   */
+  @Deprecated
+  int getMsgAuditSdkRefCount(long sdk);
+
+  /**
+   * 获取当前SDK并增加引用计数（原子操作）
+   * 如果SDK未初始化或已过期，返回0而不增加引用计数
+   * 此方法用于在获取SDK后立即增加引用计数，避免并发问题
+   *
+   * @return 当前有效的SDK id并已增加引用计数，如果SDK无效返回0
+   * @deprecated 引用计数机制已废弃，由 ThreadLocal 模式替代。
+   */
+  @Deprecated
+  long acquireMsgAuditSdk();
+
+  /**
+   * 减少SDK引用计数并在必要时释放（原子操作）
+   * 当引用计数降为0且SDK已过期时，才销毁SDK以释放资源
+   * 如果SDK尚未过期，保留SDK缓存以供后续调用复用，避免频繁初始化和销毁
+   *
+   * @param sdk sdk id
+   * @deprecated 引用计数机制已废弃，由 ThreadLocal 模式替代。
+   */
+  @Deprecated
+  void releaseMsgAuditSdk(long sdk);
+}
